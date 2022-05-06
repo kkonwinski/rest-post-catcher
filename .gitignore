@@ -1,0 +1,5 @@
+.idea/
+symfony-docker-compose/
+.env.local
+vendor
+var/*

@@ -3,12 +3,9 @@
 namespace App\Command;
 
 use App\Controller\ArticleController;
-use App\Service\ArticleApiService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -37,7 +34,7 @@ class ApiGetPostsCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $this->articleController->addArticle();
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('You download all articles');
 
         return Command::SUCCESS;
     }

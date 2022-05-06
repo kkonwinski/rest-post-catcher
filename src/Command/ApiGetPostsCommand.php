@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Controller\ArticleController;
 use App\Service\ArticleApiService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,13 +18,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ApiGetPostsCommand extends Command
 {
-    private ArticleApiService $apiService;
 
-    public function __construct(ArticleApiService $apiService,string $name = null)
+    private ArticleController $articleController;
+
+    public function __construct(ArticleController $articleController, string $name = null)
     {
         parent::__construct($name);
-        $this->apiService = $apiService;
 
+        $this->articleController = $articleController;
     }
 
     protected function configure(): void
@@ -34,7 +36,7 @@ class ApiGetPostsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->apiService->getArticle();
+        $this->articleController->addArticle();
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         return Command::SUCCESS;

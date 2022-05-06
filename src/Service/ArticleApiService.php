@@ -13,12 +13,16 @@ class ArticleApiService
         $this->restService = $restService;
     }
 
-    public function getArticle()
+    /**
+     * Function return complete merged  articles
+     * @return array
+     */
+    public function getArticle(): array
     {
-        $posts = $this->restService->fetchData('posts',self::API_URL);
-        $users = $this->restService->fetchData('users',self::API_URL);
+        $posts = $this->restService->fetchData('posts', self::API_URL);
+        $users = $this->restService->fetchData('users', self::API_URL);
 
-        $this->mergeData($posts, $users);
+        return $this->mergeData($posts, $users);
 
     }
 

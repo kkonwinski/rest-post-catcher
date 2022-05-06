@@ -2,22 +2,21 @@
 
 namespace App\Service;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ArticleApiService
 {
     private const API_URL = 'https://jsonplaceholder.typicode.com';
-    private HttpClientInterface $client;
+    private RestService $restService;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(RestService $restService)
     {
-        $this->client = $client;
+        $this->restService = $restService;
     }
 
     public function getArticle()
     {
-        $posts = $this->fetchData('posts');
-        $users = $this->fetchData('users');
+        $posts = $this->restService->fetchData('posts',self::API_URL);
+        $users = $this->restService->fetchData('users',self::API_URL);
 
         $this->mergeData($posts, $users);
 
@@ -47,17 +46,5 @@ class ArticleApiService
         return $result;
     }
 
-    /**
-     * @param string $data
-     * @return array
-     */
-    public function fetchData(string $data): array
-    {
-        $response = $this->client->request(
-            'GET',
-            self::API_URL . "/" . $data
-        );
 
-        return $response->toArray();
-    }
 }

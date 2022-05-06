@@ -81,6 +81,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "roave/security-advisories": "dev-latest",
-        "symfony/maker-bundle": "^1.41"
+        "symfony/maker-bundle": "^1.41",
+        "symfony/stopwatch": "6.0.*",
+        "symfony/web-profiler-bundle": "6.0.*"
     }
 }

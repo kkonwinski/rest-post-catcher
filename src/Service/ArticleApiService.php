@@ -16,8 +16,8 @@ class ArticleApiService
 
     public function getArticle()
     {
-        $posts = $this->fetchData("posts");
-        $users = $this->fetchData("users");
+        $posts = $this->fetchData('posts');
+        $users = $this->fetchData('users');
 
         $this->mergeData($posts, $users);
 

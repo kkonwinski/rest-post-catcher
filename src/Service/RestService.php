@@ -4,7 +4,6 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-
 class RestService implements RestServiceInterface
 {
     private HttpClientInterface $client;

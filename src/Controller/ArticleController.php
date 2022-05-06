@@ -20,11 +20,10 @@ class ArticleController extends AbstractController
     }
 
 
-    public function addArticle():void
+    public function addArticle(): void
     {
         $articles = $this->apiService->getArticle();
         foreach ($articles as $article) {
-
             $author = new Author();
             $author->setName($article['name']);
             $this->entityManager->persist($author);
@@ -57,10 +56,7 @@ class ArticleController extends AbstractController
     public function searchPostData(array $dataArray, string $search_value, string $key_to_search)
     {
         if (is_array($dataArray[$key_to_search]) && array_key_exists($search_value, $dataArray[$key_to_search])) {
-
             return $dataArray[$key_to_search][$search_value];
-
         }
-
     }
 }

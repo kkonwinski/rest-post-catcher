@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-
 class ArticleApiService
 {
     private const API_URL = 'https://jsonplaceholder.typicode.com';
@@ -23,7 +22,6 @@ class ArticleApiService
         $users = $this->restService->fetchData('users', self::API_URL);
 
         return $this->mergeData($posts, $users);
-
     }
 
     /**
@@ -33,14 +31,13 @@ class ArticleApiService
      * @param array $users
      * @return array
      */
-    public function mergeData(array $posts, array $users):array
+    public function mergeData(array $posts, array $users): array
     {
         $result = array();
         $usersArr = array();
         foreach ($users as $user) {
             foreach ($posts as $post) {
                 if (isset($user) && $user['id'] === $post['userId']) {
-
                     $usersArr[$user['id']] = $user;
                     $user[] = $post;
                     $result = $usersArr;
@@ -49,6 +46,4 @@ class ArticleApiService
         }
         return $result;
     }
-
-
 }

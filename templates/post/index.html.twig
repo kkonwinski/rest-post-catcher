@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.body|u.truncate(100, '...') }}</td>
+                <td>
+                    <buttom class="btn"><a href="{{ path('app_post_show', {'id': post.id}) }}">show</a></buttom>
+                    <buttom class="btn"><a href="{{ path('app_post_delete', {'id': post.id}) }}">delete</a></buttom>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

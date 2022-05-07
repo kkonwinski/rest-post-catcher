@@ -55,28 +55,34 @@ class ArticleApiService
         return $result;
     }
 
-    public function addArticle(): void
+    /**
+     * Function add complete article array to database, or only author
+     * @return void
+     */
+    public function addArticle()
     {
         $articles = $this->getArticle();
-        foreach ($articles as $article) {
-            $author = new Author();
-            $author->setName($article['name']);
-            $this->entityManager->persist($author);
+        if (!empty($articles)) {
+            foreach ($articles as $article) {
+                $author = new Author();
+                $author->setName($article['name']);
+                $this->entityManager->persist($author);
 
-            foreach ($article as $key => $value) {
-                $post = new Post();
-                $post->setAuthor($author);
-                $title = $this->searchPostData($article, 'title', $key);
-                $body = $this->searchPostData($article, 'body', $key);
+                foreach ($article as $key => $value) {
+                    $title = $this->searchPostData($article, 'title', $key);
+                    $body = $this->searchPostData($article, 'body', $key);
 
-                if (!empty($title) && !empty($body)) {
-                    $post->setTitle($title);
-                    $post->setBody($body);
-                    $this->entityManager->persist($post);
+                    if (!empty($title) && !empty($body)) {
+                        $post = new Post();
+                        $post->setAuthor($author);
+                        $post->setTitle($title);
+                        $post->setBody($body);
+                        $this->entityManager->persist($post);
+                    }
                 }
             }
+            $this->entityManager->flush();
         }
-        $this->entityManager->flush();
     }
 
     /**

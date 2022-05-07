@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Controller\ArticleController;
+use App\Service\ArticleApiService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,14 +15,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ApiGetPostsCommand extends Command
 {
+    private ArticleApiService $articleApi;
 
-    private ArticleController $articleController;
-
-    public function __construct(ArticleController $articleController, string $name = null)
+    public function __construct(ArticleApiService $articleApi, string $name = null)
     {
         parent::__construct($name);
-
-        $this->articleController = $articleController;
+        $this->articleApi = $articleApi;
     }
 
     protected function configure(): void
@@ -33,7 +31,7 @@ class ApiGetPostsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->articleController->addArticle();
+        $this->articleApi->addArticle();
         $io->success('You download all articles');
 
         return Command::SUCCESS;

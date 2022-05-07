@@ -42,10 +42,12 @@ class ArticleApiService
         $result = array();
         $usersArr = array();
         foreach ($users as $user) {
+            $usersArr[$user['id']] = $user;
             foreach ($posts as $post) {
-                if (isset($user) && $user['id'] === $post['userId']) {
-                    $usersArr[$user['id']] = $user;
+                if ($user['id'] === $post['userId']) {
                     $user[] = $post;
+                    $usersArr[$user['id']] = $user;
+
                     $result = $usersArr;
                 }
             }
@@ -65,12 +67,10 @@ class ArticleApiService
                 $post = new Post();
                 $post->setAuthor($author);
                 $title = $this->searchPostData($article, 'title', $key);
-                if (!empty($title)) {
-                    $post->setTitle($title);
-                    $this->entityManager->persist($post);
-                }
                 $body = $this->searchPostData($article, 'body', $key);
-                if (!empty($body)) {
+
+                if (!empty($title) && !empty($body)) {
+                    $post->setTitle($title);
                     $post->setBody($body);
                     $this->entityManager->persist($post);
                 }
